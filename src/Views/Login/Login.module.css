@@ -1,0 +1,17 @@
+.Or {
+  text-align: center;
+  margin: 12px 0;
+}
+
+.SocialLoginButton {
+  position: relative;
+}
+
+.SocialIcon {
+  display: inline;
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  background-color: white;
+  border-radius: 4px;
+}
