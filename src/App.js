@@ -3,15 +3,21 @@ import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import Dashboard from "./Views/Dashboard";
 import ProtectedRoute from "./Components/Routes/ProtectedRoute";
 import UnProtectedRoute from "./Components/Routes/UnProtectedRoute";
+import { AuthProvider } from "./Context/AuthContext";
+import { AxiosProvidder } from "./Context/AxiosContext";
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <UnProtectedRoute path="/login" component={Login} />
-        <ProtectedRoute component={Dashboard} />
-      </Switch>
-    </Router>
+    <AuthProvider>
+      <AxiosProvidder>
+        <Router>
+          <Switch>
+            <UnProtectedRoute path="/login" component={Login} />
+            <ProtectedRoute component={Dashboard} />
+          </Switch>
+        </Router>
+      </AxiosProvidder>
+    </AuthProvider>
   );
 }
 

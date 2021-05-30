@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { Container, Row } from "react-bootstrap";
 import Navbar from "../../Components/Header";
+import RecentFasts from "../../Components/RecentFasts";
 import Timer from "../../Components/Timer";
 
 const Dashboard = () => {
@@ -10,13 +10,10 @@ const Dashboard = () => {
   return (
     <>
       <Navbar />
-      <Container style={{
-        height: 360
-      }}>
-        <Row>
-          <Timer />
-        </Row>
-      </Container>
+      <div className="flex flex-col items-center gap-y-4 lg:flex-row justify-between gap-x-4">
+        <Timer />
+        <RecentFasts />
+      </div>
     </>
   );
 }
