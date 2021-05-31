@@ -1,47 +1,66 @@
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { AxiosContext } from "../Context/AxiosContext";
 
 export const useQuery = (url) => {
-  const { axiosClient } = useContext(AxiosContext);
+  const { axiosClient, refreshToken } = useContext(AxiosContext);
   const [{ error, isLoading, data }, setState] = useState({
     isLoading: true,
   })
 
-  useEffect(() => {
+  const fetchData = useCallback(() => {
+    setState({
+      isLoading: true
+    })
     axiosClient.get(url)
-      .then(resp => setState((prevState) => ({
-        ...prevState,
+      .then(resp => setState({
         isLoading: false,
         data: resp.data
-      })))
-      .catch(err => setState((prevState) => ({
-        ...prevState,
-        isLoading: false,
-        error: err
-      })))
-  }, [url, axiosClient])
+      }))
+      .catch(err => {
+        setState({
+          isLoading: false,
+          error: err
+        })
+        if (err.response.data?.error?.code === 'auth/id-token-expired') {
+          refreshToken()
+        }
+      })
+  }, [url, axiosClient, refreshToken])
 
-  return [error, isLoading, data]
+  useEffect(() => {
+    fetchData();
+  }, [fetchData])
+
+  return [
+    { error, isLoading, data },
+    fetchData
+  ]
 }
 
 export const useLazyQuery = (url) => {
-  const { axiosClient } = useContext(AxiosContext);
+  const { axiosClient, refreshToken } = useContext(AxiosContext);
   const [{ error, isLoading, data }, setState] = useState({
     isLoading: true,
   })
 
   const fetchData = () => {
+    setState({
+      isLoading: true
+    })
     axiosClient.get(url)
-      .then(resp => setState((prevState) => ({
-        ...prevState,
+      .then(resp => setState({
         isLoading: false,
         data: resp.data
-      })))
-      .catch(err => setState((prevState) => ({
-        ...prevState,
-        isLoading: false,
-        error: err
-      })))
+      }))
+      .catch(err => {
+        setState({
+          isLoading: false,
+          error: err
+        })
+        if (err.response.data?.error?.code === 'auth/id-token-expired') {
+          refreshToken()
+        }
+      })
   }
 
   return [
@@ -50,28 +69,33 @@ export const useLazyQuery = (url) => {
   ]
 }
 
-export const useMutation = (url, body) => {
-  const { axiosClient } = useContext(AxiosContext);
+export const useMutation = (url, body, refetch) => {
+  const { axiosClient, refreshToken } = useContext(AxiosContext);
   const [{ error, isLoading, data }, setState] = useState({
     isLoading: false,
   })
 
   const mutate = (bodyData = body) => {
-    setState(prevState => ({
-      ...prevState,
+    setState({
       isLoading: true
-    }))
+    })
     axiosClient.post(url, bodyData)
-      .then(resp => setState((prevState) => ({
-        ...prevState,
-        isLoading: false,
-        data: resp.data
-      })))
-      .catch(err => setState((prevState) => ({
-        ...prevState,
-        isLoading: false,
-        error: err
-      })))
+      .then(resp => {
+        setState({
+          isLoading: false,
+          data: resp.data,
+        });
+        if (typeof refetch === 'function') refetch()
+      })
+      .catch(err => {
+        setState({
+          isLoading: false,
+          error: err
+        })
+        if (err.response.data?.error?.code === 'auth/id-token-expired') {
+          refreshToken()
+        }
+      })
   }
 
   useEffect(() => {

@@ -5,6 +5,7 @@ import ProtectedRoute from "./Components/Routes/ProtectedRoute";
 import UnProtectedRoute from "./Components/Routes/UnProtectedRoute";
 import { AuthProvider } from "./Context/AuthContext";
 import { AxiosProvidder } from "./Context/AxiosContext";
+import { LoginFormProvider } from "./Context/LoginFormContext";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       <AxiosProvidder>
         <Router>
           <Switch>
-            <UnProtectedRoute path="/login" component={Login} />
+            <UnProtectedRoute path="/login" component={LoginContextWrapper} />
             <ProtectedRoute component={Dashboard} />
           </Switch>
         </Router>
@@ -20,5 +21,11 @@ function App() {
     </AuthProvider>
   );
 }
+
+const LoginContextWrapper = () => (
+  <LoginFormProvider>
+    <Login />
+  </LoginFormProvider>
+);
 
 export default App;

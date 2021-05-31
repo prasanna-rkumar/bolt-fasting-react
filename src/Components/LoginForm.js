@@ -10,9 +10,12 @@ const EmailLoginForm = () => {
   const loginWithEmail = (e) => {
     e.preventDefault();
     auth.signInWithEmailAndPassword(email, password).then(async (userCredential) => {
-      axios.post('/register', { headers: { authorization: `Bearer ${await auth.currentUser.getIdToken()}` } }).then((resp => {
-        console.log(resp)
-      }))
+      axios
+        .post('/register', {
+          headers: {
+            authorization: `Bearer ${await auth.currentUser.getIdToken()}`
+          }
+        })
     })
   };
 

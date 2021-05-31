@@ -1,6 +1,9 @@
 import avatar from '../assets/avatar.svg'
+import {useContext} from 'react'
+import { AuthContext } from '../Context/AuthContext';
 
 const Navbar = () => {
+  const {logout} = useContext(AuthContext);
   return (
     <nav style={{
       height: 60,
@@ -21,7 +24,7 @@ const Navbar = () => {
           textTransform: 'uppercase'
         }}>Bolt Fasting</span>
       </div>
-      <img src={avatar} alt="user" />
+      <img onClick={logout} src={avatar} alt="user" />
     </nav>
   );
 }

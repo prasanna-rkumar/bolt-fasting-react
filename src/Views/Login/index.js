@@ -1,33 +1,18 @@
-import { Button, Container, Col, Card } from 'react-bootstrap';
-import { auth, GoogleAuthProvider } from '../../firebase';
-import { FcGoogle } from 'react-icons/fc';
-import styles from './Login.module.css';
+import RegistrationForm from './components/RegistrationForm';
+import LoginForm from './components/LoginForm';
+import { useContext } from 'react';
+import { LoginFormContext, REGISTERATION_FORM } from '../../Context/LoginFormContext';
 
 const Login = () => {
-  const loginWithGmail = (e) => {
-    e.preventDefault();
-    auth.signInWithPopup(new GoogleAuthProvider())
-  }
-
+  const { form } = useContext(LoginFormContext);
   return (
-    <Container>
-      <Col style={{
-        maxWidth: 384,
-        margin: 'auto',
-        paddingTop: '10%'
-      }}>
-        <Card>
-          <Card.Body>
-            <Card.Title>
-              <h2 style={{ textAlign: 'center' }}>Bolt Fasting</h2>
-            </Card.Title>
-            <Button onClick={loginWithGmail} className={styles.SocialLoginButton} style={{ background: '#4F86F7' }} variant="primary" block>
-              <FcGoogle size={28} className={styles.SocialIcon} />Login with Google
-            </Button>
-          </Card.Body>
-        </Card>
-      </Col>
-    </Container>
+    <div className="flex flex-col justify-start items-start bg-white rounded-2xl pt-4 pb-8 px-4 shadow-xl max-w-md mx-auto gap-y-2 relative top-16">
+      { form === REGISTERATION_FORM ? (
+        <RegistrationForm />
+      ) : (
+        <LoginForm />
+      )}
+    </div>
   );
 }
 
