@@ -8,9 +8,10 @@ export const useQuery = (url) => {
   })
 
   const fetchData = useCallback(() => {
-    setState({
+    setState((prevState) => ({
+      ...prevState,
       isLoading: true
-    })
+    }))
     axiosClient.get(url)
       .then(resp => setState({
         isLoading: false,
@@ -44,9 +45,10 @@ export const useLazyQuery = (url) => {
   })
 
   const fetchData = () => {
-    setState({
+    setState((prevState) => ({
+      ...prevState,
       isLoading: true
-    })
+    }))
     axiosClient.get(url)
       .then(resp => setState({
         isLoading: false,
@@ -75,10 +77,12 @@ export const useMutation = (url, body, refetch) => {
     isLoading: false,
   })
 
-  const mutate = (bodyData = body) => {
-    setState({
+  const mutate = (bodyData) => {
+    if (bodyData === undefined) bodyData = body
+    setState((prevState) => ({
+      ...prevState,
       isLoading: true
-    })
+    }))
     axiosClient.post(url, bodyData)
       .then(resp => {
         setState({
