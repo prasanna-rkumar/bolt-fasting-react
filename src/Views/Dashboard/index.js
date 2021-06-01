@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import GeneralStats from "../../Components/GeneralStats";
 import Navbar from "../../Components/Header";
 import RecentFasts from "../../Components/RecentFasts";
 import Timer from "../../Components/Timer";
@@ -17,6 +18,7 @@ const Dashboard = () => {
         </CurrentFastingProvider>
         <RecentFasts />
       </div>
+      <GeneralStats />
     </>
   );
 }

@@ -17,20 +17,23 @@ export const CurrentFastingTimerProvider = ({ children }) => {
     if (currentFasting) {
       const totalSeconds = (new Date(currentFasting.timeToEnd)).getTime() - (new Date(currentFasting.startedAt)).getTime()
       interval = setInterval(() => {
-        if (Date.now() > (new Date()).getTime()) {
+        if (Date.now() >= (new Date(currentFasting.timeToEnd)).getTime()) {
           clearInterval(interval);
         } else {
           const elapsedSeconds = Date.now() - (new Date(currentFasting.startedAt)).getTime();
           const duration = dayjs.duration(elapsedSeconds);
-          setElapsedTime(`${duration.hours()}:${duration.minutes()}:${duration.seconds()}`);
+          setElapsedTime(duration.format("HH:mm:ss"));
           setElapsedPercentage(elapsedSeconds / totalSeconds * 100)
         }
       }, 1000)
+    } else {
+      setElapsedPercentage(0);
+      setElapsedTime('00:00:00')
     }
 
     return () => {
-      if (interval) clearInterval(interval);
-    }
+      clearInterval(interval);
+    };
   }, [currentFasting])
 
   return (

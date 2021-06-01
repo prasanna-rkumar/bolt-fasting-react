@@ -7,7 +7,7 @@ export const CurrentFastingProvider = ({ children }) => {
   const [goal, setGoal] = useState('16:8');
   const [{ isLoading, data }, refetchCurrentFasting] = useQuery('/current/fast');
   const [, startMutation] = useMutation('/start/fasting', { start: Date.now(), goal: goal }, refetchCurrentFasting);
-  const [, endMutation] = useMutation('/end', { end: Date.now() }, refetchCurrentFasting);
+  const [, endMutation] = useMutation('/end/fasting', { end: Date.now() }, refetchCurrentFasting);
 
   const start = () => {
     startMutation()

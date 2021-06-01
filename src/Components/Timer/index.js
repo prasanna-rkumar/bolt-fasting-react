@@ -17,7 +17,7 @@ const Timer = () => {
       maxWidth: 360,
       minHeight: 360
     }}>
-      { (!isLoading) && (
+      { (true) && (
         <>
           <SelectGoal />
           <div className="w-52 h-52 relative">

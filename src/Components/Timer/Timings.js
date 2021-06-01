@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import { useContext, useEffect, useState } from "react";
 import { CurrentFastingContext } from "../../Context/CurrentFastingContext";
 import getGoalHoursFromGoalString from "../../utils/getGoalHoursFromGoalString";
+import TimePicker from "./TimePicker";
 
 const Timings = () => {
   const { currentFasting, goal } = useContext(CurrentFastingContext);
@@ -30,13 +31,16 @@ const Timings = () => {
         setEndingTime(Date.now() + (goalHours * 60 * 60 * 1000))
       }, 5 * 1000)
     }
-    return () => clearInterval(interval)
+    return () => {
+      clearInterval(interval);
+    };
   }, [currentFasting, goalHours])
 
   return (
     <div className="flex flex-row justify-around w-full">
-      <Timing label="Started" value={dayjs(startingTime).format("D MMM, h:m A")} />
-      <Timing label="Ending at" value={dayjs(endingTime).format("D MMM, h:m A")} />
+      <TimePicker min={new Date(1622457000000)} max={new Date(1622563200000)} />
+      <Timing label={currentFasting ? 'Started At' : 'Starting'} value={dayjs(startingTime).format("D MMM, hh:mm A")} />
+      <Timing label="Ending at" value={dayjs(endingTime).format("D MMM, h:mm A")} />
     </div>
   );
 };
