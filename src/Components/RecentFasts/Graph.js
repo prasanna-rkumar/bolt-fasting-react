@@ -8,7 +8,7 @@ const Graph = ({ data }) => {
     const currentDuration = dayjs(current.endedAt).diff(dayjs(current.startedAt));
     return accumulator > currentDuration ? accumulator : currentDuration
   }, 0);
-  longestFastDuration = (longestFastDuration / 1000 / 60 / 60);
+  longestFastDuration = Math.ceil(longestFastDuration / 1000 / 60 / 60);
 
   let xAxisUnits = [];
 
@@ -16,7 +16,7 @@ const Graph = ({ data }) => {
     xAxisUnits.push(0)
     for (let i = 1; i <= 3; i++) {
       xAxisUnits.push(
-        Math.floor(longestFastDuration * i / 3)
+        Math.ceil(longestFastDuration * i / 3)
       )
     }
   }
@@ -25,8 +25,8 @@ const Graph = ({ data }) => {
     <div className="flex gap-x-2 flex-1">
       <div className="flex flex-col-reverse justify-between pb-2">
         {
-          xAxisUnits.map((value) => (
-            <div key={value} className="text-xs text-gray-500">{value}h</div>
+          xAxisUnits.map((value, index) => (
+            <div key={index} className="text-xs text-gray-500">{value}h</div>
           ))
         }
       </div>
