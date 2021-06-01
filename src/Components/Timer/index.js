@@ -1,16 +1,16 @@
 import SelectGoal from "./SelectGoal"
 import Progress from "./Progress"
-import { useContext } from "react";
-import { CurrentFastingContext } from "../../Context/CurrentFastingContext";
+/* import { useContext } from "react";
+import { CurrentFastingContext } from "../../Context/CurrentFastingContext"; */
 import ElapsedTime from "./ElapsedTime";
 import TimerButton from "./TimerButton";
 import Timings from "./Timings";
 import { CurrentFastingTimerProvider } from "../../Context/CurrentFastingTimerContext";
 
 const Timer = () => {
-  const { isLoading } = useContext(CurrentFastingContext);
+  /* const { isLoading } = useContext(CurrentFastingContext);
 
-  console.log(isLoading)
+  console.log(isLoading) */
 
   return (
     <div className="primary-bg rounded-3xl shadow-xl w-full flex flex-col items-center justify-between p-4" style={{
