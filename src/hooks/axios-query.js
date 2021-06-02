@@ -1,8 +1,7 @@
-import { useCallback, useContext, useEffect, useState } from "react";
-import { AxiosContext } from "../Context/AxiosContext";
+import { useCallback, useEffect, useState } from "react";
+import { get, post } from "../axios-helper";
 
 export const useQuery = (url) => {
-  const { axiosClient, refreshToken } = useContext(AxiosContext);
   const [{ error, isLoading, data }, setState] = useState({
     isLoading: true,
   })
@@ -12,7 +11,7 @@ export const useQuery = (url) => {
       ...prevState,
       isLoading: true
     }))
-    axiosClient.get(url)
+    get({ url })
       .then(resp => setState({
         isLoading: false,
         data: resp.data
@@ -23,10 +22,10 @@ export const useQuery = (url) => {
           error: err
         })
         if (err.response?.data?.error?.code === 'auth/id-token-expired') {
-          refreshToken()
+          fetchData()
         }
       })
-  }, [url, axiosClient, refreshToken])
+  }, [url])
 
   useEffect(() => {
     fetchData();
@@ -39,7 +38,6 @@ export const useQuery = (url) => {
 }
 
 export const useLazyQuery = (url) => {
-  const { axiosClient, refreshToken } = useContext(AxiosContext);
   const [{ error, isLoading, data }, setState] = useState({
     isLoading: true,
   })
@@ -49,7 +47,7 @@ export const useLazyQuery = (url) => {
       ...prevState,
       isLoading: true
     }))
-    axiosClient.get(url)
+    get({ url })
       .then(resp => setState({
         isLoading: false,
         data: resp.data
@@ -60,7 +58,7 @@ export const useLazyQuery = (url) => {
           error: err
         })
         if (err.response?.data?.error?.code === 'auth/id-token-expired') {
-          refreshToken()
+          fetchData()
         }
       })
   }
@@ -72,7 +70,6 @@ export const useLazyQuery = (url) => {
 }
 
 export const useMutation = (url, body, refetch) => {
-  const { axiosClient, refreshToken } = useContext(AxiosContext);
   const [{ error, isLoading, data }, setState] = useState({
     isLoading: false,
   })
@@ -83,7 +80,7 @@ export const useMutation = (url, body, refetch) => {
       ...prevState,
       isLoading: true
     }))
-    return axiosClient.post(url, bodyData)
+    return post({ url, data: bodyData })
       .then(resp => {
         setState({
           isLoading: false,
@@ -98,15 +95,11 @@ export const useMutation = (url, body, refetch) => {
           error: err
         })
         if (err.response?.data?.error?.code === 'auth/id-token-expired') {
-          refreshToken()
+          mutate(bodyData)
         }
         return err.response
       })
   }
-
-  useEffect(() => {
-
-  }, [url, body, axiosClient])
 
   return [
     { error, isLoading, data },
