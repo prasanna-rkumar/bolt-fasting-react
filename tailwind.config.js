@@ -14,9 +14,17 @@ module.exports = {
       white: {
         DEFAULT: '#fff'
       },
+      black: {
+        DEFAULT: '#000'
+      },
       gray: {
         DEFAULT: '#A3A3A3',
-        "100": "#F0F0F0"
+        "100": "#F0F0F0",
+        "400": "#AAA",
+        "500": "#777"
+      },
+      green: {
+        DEFAULT: "#5DD362"
       }
     },
     extend: {},

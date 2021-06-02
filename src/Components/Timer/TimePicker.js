@@ -56,7 +56,7 @@ const TimePicker = ({ children, max, min, maxFailureMessage, minFailureMessage, 
       <Modal onClose={() => setOpen(false)} isOpen={isOpen}>
         <div className="max-w-xs w-full rounded-3xl bg-white flex flex-col justify-between py-4 gap-y-4">
           <div className="flex items-center overflow-hidden justify-around">
-            <select className="text-black text-xl border-2 focus:ring focus:ring-offset-purple-500 border-purple-200 p-1 rounded-md outline-none" value={day} onChange={(e) => setDay(e.target.value)}>
+            <select className="text-black text-xl border-2 focus:ring focus:ring-offset-primary border-primary p-1 rounded-md outline-none" value={day} onChange={(e) => setDay(e.target.value)}>
               {
                 days.map((value) => (
                   <option key={value.getTime()} value={value.getTime()}>{dayjs(value).format("D, MMM")}</option>
@@ -80,7 +80,7 @@ const TimePicker = ({ children, max, min, maxFailureMessage, minFailureMessage, 
 }
 
 const Number = ({ value, onChange }) => (
-  <input value={value} onChange={onChange} className="w-12 h-12 bg-purple-500 rounded-md text-xl text-center text-white" />
+  <input value={value} onChange={onChange} className="w-12 h-12 bg-primary rounded-md text-xl text-center text-white" />
 );
 
 export default TimePicker;

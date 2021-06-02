@@ -17,7 +17,8 @@ const Graph = ({ data }) => {
     })
   })
 
-  let weekFastAverage = weekFastHours / weekTotalFasts
+  console.log(weekFastHours, weekTotalFasts)
+  let weekFastAverage = weekTotalFasts && weekFastHours / weekTotalFasts
   let xAxisUnits = [];
 
   if (longestFastDuration > 0) {
