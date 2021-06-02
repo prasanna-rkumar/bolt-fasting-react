@@ -19,7 +19,6 @@ const ConfirmFastEnd = ({ onConfirm }) => {
             onConfirm({
               end: val
             })
-            console.log(val)
           }}
           maxFailureMessage="End time cannot be later than current time"
           minFailureMessage="End time cannot be earlier than starting time"

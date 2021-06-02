@@ -4,7 +4,6 @@ import Dashboard from "./Views/Dashboard";
 import ProtectedRoute from "./Components/Routes/ProtectedRoute";
 import UnProtectedRoute from "./Components/Routes/UnProtectedRoute";
 import { AuthProvider } from "./Context/AuthContext";
-import { AxiosProvidder } from "./Context/AxiosContext";
 import { LoginFormProvider } from "./Context/LoginFormContext";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,15 +11,13 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
   return (
     <AuthProvider>
-      <AxiosProvidder>
-        <ToastContainer />
-        <Router>
-          <Switch>
-            <UnProtectedRoute path="/login" component={LoginContextWrapper} />
-            <ProtectedRoute component={Dashboard} />
-          </Switch>
-        </Router>
-      </AxiosProvidder>
+      <ToastContainer />
+      <Router>
+        <Switch>
+          <UnProtectedRoute path="/login" component={LoginContextWrapper} />
+          <ProtectedRoute component={Dashboard} />
+        </Switch>
+      </Router>
     </AuthProvider>
   );
 }

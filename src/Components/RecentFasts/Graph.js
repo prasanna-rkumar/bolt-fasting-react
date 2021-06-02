@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { useRef } from "react";
 import Bar from "./Bar";
 
@@ -7,7 +8,7 @@ const Graph = ({ data }) => {
   let longestFastDuration = 0,
     weekFastHours = 0,
     weekTotalFasts = 0;
-   
+
   data.forEach((day) => {
     day.fasts.forEach((fast) => {
       weekFastHours += fast.fastDuration;
@@ -17,7 +18,6 @@ const Graph = ({ data }) => {
     })
   })
 
-  console.log(weekFastHours, weekTotalFasts)
   let weekFastAverage = weekTotalFasts && weekFastHours / weekTotalFasts
   let xAxisUnits = [];
 
@@ -33,10 +33,17 @@ const Graph = ({ data }) => {
 
   return (
     <>
-      <h4 className="flex flex-col">
-        <span className="text-gray">Recent Fasts</span>
-        <span className="text-2xl font-semibold ">Average {weekFastAverage.toFixed(1)}h</span>
-      </h4>
+      <div className="flex justify-between items-end text-sm text-gray">
+        <h4 className="flex flex-col">
+          <span>Recent Fasts</span>
+          <span className="text-2xl font-semibold text-black">Average {weekFastAverage.toFixed(1)}h</span>
+        </h4>
+        {
+          (data && data.length > 0) && (
+            <span>{dayjs(data[0].date).format("MMM D")} { data.length > 1 && ' - ' + dayjs(data[data.length - 1].date).format("MMM D")}</span>
+          )
+        }
+      </div>
       <div className="flex gap-x-2 flex-1">
         <div className="flex flex-col-reverse justify-between pb-2">
           {

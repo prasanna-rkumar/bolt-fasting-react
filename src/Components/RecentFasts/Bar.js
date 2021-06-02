@@ -20,8 +20,6 @@ const Bar = ({ fast, longestFastDuration }) => {
   const goalHours = getGoalHoursFromGoalString(fast.goal);
   let color;
 
-  console.log(fast.endedAt)
-
   if (!fast.endedAt) {
     color = 'bg-secondary';
   } else if (fast.fastDuration >= goalHours - (goalHours * 40 / 100)) {
