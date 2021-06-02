@@ -1,12 +1,6 @@
 import dayjs from "dayjs";
 import getGoalHoursFromGoalString from '../../utils/getGoalHoursFromGoalString'
 
-const COLORS = {
-  green: "#5DD362",
-  gray: "#A3A3A3",
-  active: "#EDB98A"
-}
-
 const Bars = ({ fastData, longestFastDuration, index }) => {
   return (
     <div key={fastData._id} style={{ width: 90, minWidth: 90 }} className="h-full flex flex-col justify-end items-center">
@@ -29,14 +23,14 @@ const Bar = ({ fast, longestFastDuration }) => {
   console.log(fast.endedAt)
 
   if (!fast.endedAt) {
-    color = COLORS.active;
+    color = 'bg-secondary';
   } else if (fast.fastDuration >= goalHours - (goalHours * 40 / 100)) {
-    color = COLORS.green;
+    color = 'bg-green';
   } else {
-    color = COLORS.gray;
+    color = 'bg-gray';
   }
   return (
-    <div style={{ height: `${fast.fastDuration / longestFastDuration * 100}%`, backgroundColor: color }} className="w-3 rounded-full">
+    <div style={{ height: `${fast.fastDuration / longestFastDuration * 100}%` }} className={`w-3 rounded-full ${color}`}>
     </div>
   );
 }
