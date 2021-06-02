@@ -19,7 +19,7 @@ export const useQuery = (url) => {
       .catch(err => {
         setState({
           isLoading: false,
-          error: err
+          error: err.response
         })
         if (err.response?.data?.error?.code === 'auth/id-token-expired') {
           fetchData()
@@ -55,7 +55,7 @@ export const useLazyQuery = (url) => {
       .catch(err => {
         setState({
           isLoading: false,
-          error: err
+          error: err.response
         })
         if (err.response?.data?.error?.code === 'auth/id-token-expired') {
           fetchData()
@@ -80,25 +80,27 @@ export const useMutation = (url, body, refetch) => {
       ...prevState,
       isLoading: true
     }))
-    return post({ url, data: bodyData })
-      .then(resp => {
-        setState({
-          isLoading: false,
-          data: resp.data,
-        });
-        if (typeof refetch === 'function') refetch()
-        return resp.data
-      })
-      .catch(err => {
-        setState({
-          isLoading: false,
-          error: err
+    return new Promise((resolve, reject) => {
+      post({ url, data: bodyData })
+        .then(resp => {
+          setState({
+            isLoading: false,
+            data: resp.data,
+          });
+          if (typeof refetch === 'function') refetch()
+          resolve(resp.data)
         })
-        if (err.response?.data?.error?.code === 'auth/id-token-expired') {
-          mutate(bodyData)
-        }
-        return err.response
-      })
+        .catch(err => {
+          setState({
+            isLoading: false,
+            error: err.response
+          })
+          if (err.response?.data?.error?.code === 'auth/id-token-expired') {
+            mutate(bodyData)
+          }
+          reject(err.response)
+        })
+    })
   }
 
   return [
