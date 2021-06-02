@@ -11,13 +11,13 @@ const Progress = () => {
 
   return (
     <svg viewBox="0 0 36 36" className="absolute" style={{ transform: 'rotateZ(36deg) scaleY(-1) scaleX(-1)' }}>
-      <path className="circle-bg stroke-current text-black text-opacity-40"
+      <path className="circle-bg text-primary-dark stroke-current"
         strokeDasharray="75, 100"
         d="M18 3
       a 15 15 0 0 1 0 30
       a 15 15 0 0 1 0 -30"
       />
-      <path className="circle stroke-current text-red-200"
+      <path className="circle text-secondary stroke-current"
         strokeDasharray={`${percentage} 100`}
         d="M18 3
       a 15 15 0 0 1 0 30

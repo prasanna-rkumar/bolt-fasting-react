@@ -13,7 +13,7 @@ const Timer = () => {
   console.log(isLoading) */
 
   return (
-    <div className="primary-bg rounded-3xl shadow-xl w-full flex flex-col items-center justify-between p-4" style={{
+    <div className=" bg-primary rounded-3xl shadow-xl w-full flex flex-col items-center justify-between p-4" style={{
       maxWidth: 360,
       minHeight: 360
     }}>

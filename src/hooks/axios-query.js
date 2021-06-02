@@ -22,7 +22,7 @@ export const useQuery = (url) => {
           isLoading: false,
           error: err
         })
-        if (err.response.data?.error?.code === 'auth/id-token-expired') {
+        if (err.response?.data?.error?.code === 'auth/id-token-expired') {
           refreshToken()
         }
       })
@@ -59,7 +59,7 @@ export const useLazyQuery = (url) => {
           isLoading: false,
           error: err
         })
-        if (err.response.data?.error?.code === 'auth/id-token-expired') {
+        if (err.response?.data?.error?.code === 'auth/id-token-expired') {
           refreshToken()
         }
       })
@@ -83,22 +83,24 @@ export const useMutation = (url, body, refetch) => {
       ...prevState,
       isLoading: true
     }))
-    axiosClient.post(url, bodyData)
+    return axiosClient.post(url, bodyData)
       .then(resp => {
         setState({
           isLoading: false,
           data: resp.data,
         });
         if (typeof refetch === 'function') refetch()
+        return resp.data
       })
       .catch(err => {
         setState({
           isLoading: false,
           error: err
         })
-        if (err.response.data?.error?.code === 'auth/id-token-expired') {
+        if (err.response?.data?.error?.code === 'auth/id-token-expired') {
           refreshToken()
         }
+        return err.response
       })
   }
 

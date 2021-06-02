@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import Button from '../Button';
 import Modal from '../Modal';
 
 const TimePicker = ({ children, max, min, maxFailureMessage, minFailureMessage, onChange }) => {
@@ -77,10 +78,6 @@ const TimePicker = ({ children, max, min, maxFailureMessage, minFailureMessage, 
     </>
   );
 }
-
-const Button = ({ children, primary, secondary, onClick }) => (
-  <button onClick={onClick} className={`rounded-md text-sm py-1 px-3 ${primary && 'text-white bg-green-500'} ${secondary && ' text-black bg-gray-400'}`}>{children}</button>
-)
 
 const Number = ({ value, onChange }) => (
   <input value={value} onChange={onChange} className="w-12 h-12 bg-purple-500 rounded-md text-xl text-center text-white" />

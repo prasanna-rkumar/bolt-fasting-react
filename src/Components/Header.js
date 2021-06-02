@@ -16,13 +16,7 @@ const Navbar = () => {
         display: 'flex'
       }}>
         <img alt="Logo" src="/logo.svg" />
-        <span style={{
-          fontWeight: 'bold',
-          fontStyle: 'italic',
-          fontSize: 18,
-          marginLeft: 16,
-          textTransform: 'uppercase'
-        }}>Bolt Fasting</span>
+        <span className="text-primary font-bold italic text-lg ml-4 uppercase">Bolt Fasting</span>
       </div>
       <img onClick={logout} src={avatar} alt="user" />
     </nav>
