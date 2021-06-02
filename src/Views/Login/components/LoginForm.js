@@ -8,8 +8,8 @@ import { auth } from "../../../firebase";
 const LoginForm = () => {
   const { showRegistrationForm } = useContext(LoginFormContext);
 
-  const [email, setEmail] = useState('prasannasrk07@gmail.com');
-  const [password, setPassword] = useState('password');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const onSubmit = (e) => {
     e.preventDefault();
