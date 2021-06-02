@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const SERVER = 'http://localhost:8042'
+const SERVER = process.env.REACT_APP_PROD_SERVER
 
 export const post = ({ url, data }) => {
   return axios({

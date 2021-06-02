@@ -2,7 +2,9 @@ import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
 
-const SERVER = 'http://localhost:8042'
+const SERVER = process.env.REACT_APP_PROD_SERVER
+
+console.log(process.env)
 
 export const AxiosContext = createContext();
 
