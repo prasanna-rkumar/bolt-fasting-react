@@ -30,7 +30,7 @@ const SelectGoal = () => {
     </div>
     {
       showMenu && (
-        <ul className="absolute z-10 rounded-xl top-full mt-1 text-sm left-1/2 transform -translate-x-1/2 bg-white bg-opacity-10 w-16 overflow-hidden">
+        <ul className="absolute z-10 rounded-xl top-full mt-1 text-sm left-1/2 transform -translate-x-1/2 bg-primary-light w-16 overflow-hidden">
           {GOALS.map((goal) => (
             <GoalOption key={goal} onClick={() => setGoal(goal)}>
               {goal}
@@ -45,5 +45,5 @@ const SelectGoal = () => {
 export default SelectGoal;
 
 const GoalOption = ({ children, onClick }) => (
-  <li onClick={onClick} className="cursor-pointer pl-2 pt-1 text-gray-300 hover:bg-purple-500 hover:text-white">{children}</li>
+  <li onClick={onClick} className="cursor-pointer pl-2 pt-1 text-gray-300 hover:bg-primary-dark hover:text-white">{children}</li>
 );
