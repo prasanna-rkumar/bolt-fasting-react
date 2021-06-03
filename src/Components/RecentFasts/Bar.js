@@ -20,6 +20,9 @@ const Bar = ({ fast, longestFastDuration }) => {
   const goalHours = getGoalHoursFromGoalString(fast.goal);
   let color;
 
+  let barHeight = (fast.fastDuration / longestFastDuration * 100);
+  barHeight = barHeight > 0 ? barHeight : 1
+
   if (!fast.endedAt) {
     color = 'bg-secondary';
   } else if (fast.fastDuration >= goalHours - (goalHours * 40 / 100)) {
@@ -28,7 +31,7 @@ const Bar = ({ fast, longestFastDuration }) => {
     color = 'bg-gray';
   }
   return (
-    <div style={{ height: `${fast.fastDuration / longestFastDuration * 100}%` }} className={`w-3 rounded-full ${color}`}>
+    <div style={{ height: `${barHeight}%` }} className={`w-3 rounded-full ${color}`}>
     </div>
   );
 }
