@@ -15,16 +15,14 @@ export const CurrentFastingTimerProvider = ({ children }) => {
   useEffect(() => {
     let interval;
     if (currentFasting) {
-      const totalSeconds = (new Date(currentFasting.timeToEnd)).getTime() - (new Date(currentFasting.startedAt)).getTime()
+      const totalSeconds =
+        dayjs(currentFasting.timeToEnd)
+          .diff(dayjs(currentFasting.startedAt))
       interval = setInterval(() => {
-        if (Date.now() >= (new Date(currentFasting.timeToEnd)).getTime()) {
-          clearInterval(interval);
-        } else {
-          const elapsedSeconds = Date.now() - (new Date(currentFasting.startedAt)).getTime();
-          const duration = dayjs.duration(elapsedSeconds);
-          setElapsedTime(duration.format("HH:mm:ss"));
-          setElapsedPercentage(elapsedSeconds / totalSeconds * 100)
-        }
+        const elapsedSeconds = Date.now() - (new Date(currentFasting.startedAt)).getTime();
+        const duration = dayjs.duration(elapsedSeconds);
+        setElapsedTime(duration.format("HH:mm:ss"));
+        setElapsedPercentage(elapsedSeconds / totalSeconds * 100)
       }, 1000)
     } else {
       setElapsedPercentage(0);
