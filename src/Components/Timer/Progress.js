@@ -5,12 +5,18 @@ const Progress = () => {
   const { elapsedPercentage } = useContext(CurrentFastingTimerContext);
   const [percentage, setPercentage] = useState(0);
 
+
+  // mapping percentage to 75% max
   useEffect(() => {
-    setPercentage(75 * elapsedPercentage / 100)
+    const tempPercentage = 75 * elapsedPercentage / 100;
+    if (tempPercentage <= 75)
+      setPercentage(tempPercentage)
+    else
+      setPercentage(75)
   }, [elapsedPercentage]);
 
   return (
-    <svg viewBox="0 0 36 36" className="absolute" style={{ transform: 'rotateZ(36deg) scaleY(-1) scaleX(-1)' }}>
+    <svg viewBox="0 0 36 36" className={`absolute ${elapsedPercentage >= 75 && 'animate-pulse'}`} style={{ transform: 'rotateZ(37deg) scaleY(-1) scaleX(-1)' }}>
       <path className="circle-bg text-primary-dark stroke-current"
         strokeDasharray="75, 100"
         d="M18 3
