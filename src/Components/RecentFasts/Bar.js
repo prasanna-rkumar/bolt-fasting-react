@@ -25,7 +25,7 @@ const Bar = ({ fast, longestFastDuration }) => {
 
   if (!fast.endedAt) {
     color = 'bg-secondary';
-  } else if (fast.fastDuration >= goalHours - (goalHours * 40 / 100)) {
+  } else if (fast.fastDuration >= goalHours - (goalHours * 60 / 100)) {
     color = 'bg-green';
   } else {
     color = 'bg-gray';
